@@ -26,6 +26,39 @@ x = 0
 y = 0
 angle = 0
 velocity = 5
+adelante=False     #Boolean for key press, false= no go. True = go
+patras=False
+
+def forward():
+    global adelante
+    adelante = True
+    move()
+
+def no_forward():
+    global adelante
+    adelante=False
+
+def motion():               #Function to keep the turtle moving
+    if adelante:
+        tank.forward(10)
+        screen.ontimer(move,10)
+
+def backwards():
+    global patras
+    patras = True
+    move()
+
+def no_backward():
+    global patras
+    patras=False
+
+def opp_motion():
+    if patras:
+        tank.backward(10)
+        
+        screen.ontimer(move,10)
+
+
 
 def movement(angle, velocity):
 
@@ -60,23 +93,27 @@ def up():
 def left():
     global angle
     angle = 180
-    tank.left(18)
+    tank.left(10)
     move()
 
 def right():
     global angle
     angle = 0
-    tank.right(18)
+    tank.right(10)
     move()
 
 
 
 
 turtle.listen()
-turtle.onkey(down, "Down")
+turtle.onkeypress(down, "Down")
+turtle.onkeyrelease(down, "Down")
 turtle.onkey(up, "Up")
-turtle.onkey(left, "Left")
-turtle.onkey(right, "Right")
+turtle.onkeyrelease(up, "Up")
+turtle.onkeypress(left, "Left")
+turtle.onkeyrelease(left,"Left")
+turtle.onkeypress(right, "Right")
+turtle.onkeyrelease(right,"Right")
 
 
 draw_tank(tank)
