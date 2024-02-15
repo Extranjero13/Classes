@@ -26,38 +26,6 @@ x = 0
 y = 0
 angle = 0
 velocity = 5
-adelante=False     #Boolean for key press, false= no go. True = go
-patras=False
-
-def forward():
-    global adelante
-    adelante = True
-    move()
-
-def no_forward():
-    global adelante
-    adelante=False
-
-def motion():               #Function to keep the turtle moving
-    if adelante:
-        tank.forward(10)
-        screen.ontimer(move,10)
-
-def backwards():
-    global patras
-    patras = True
-    move()
-
-def no_backward():
-    global patras
-    patras=False
-
-def opp_motion():
-    if patras:
-        tank.backward(10)
-        
-        screen.ontimer(move,10)
-
 
 
 def movement(angle, velocity):
