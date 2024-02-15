@@ -76,7 +76,7 @@ def right():
 turtle.listen()
 turtle.onkeypress(down, "Down")
 turtle.onkeyrelease(down, "Down")
-turtle.onkey(up, "Up")
+turtle.onkeypress(up, "Up")
 turtle.onkeyrelease(up, "Up")
 turtle.onkeypress(left, "Left")
 turtle.onkeyrelease(left,"Left")
