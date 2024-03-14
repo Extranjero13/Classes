@@ -66,13 +66,17 @@ def movement(angle, velocity):
     return dx, dy
 
 def move():
-     global x, y
+     global x, y,angle
      dx, dy = movement(angle, velocity)
      new_x, new_y = x + dx, y + dy
     
     # Check for collisions
      if not collision(new_x, new_y):
         x, y = new_x, new_y
+     else:
+        angle +=90
+        dx, dy = movement(angle, velocity)
+        x, y = x + dx, y + dy
         tank.goto(x, y)
         draw_tank(tank)
    
