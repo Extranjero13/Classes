@@ -12,7 +12,7 @@ screen.bgcolor('Blue')# tell screen to not show automatically
 tank = turtle.Turtle()
 tank.speed(0)                 # draw as fast as possible
 tank.width(4)                    # line thickness
-           # hide the turtle
+                                
 
 #enemy tank initialization
 enemy_tank1 = turtle.Turtle()
@@ -66,14 +66,16 @@ def movement(angle, velocity):
     return dx, dy
 
 def move():
-    global x, y
-    dx, dy = movement(angle, velocity)
+     global x, y
+     dx, dy = movement(angle, velocity)
+     new_x, new_y = x + dx, y + dy
+    
+    # Check for collisions
+     if not collision(new_x, new_y):
+        x, y = new_x, new_y
+        tank.goto(x, y)
+        draw_tank(tank)
 
-    x += dx
-    y += dy
-
-    tank.goto(x, y)
-    draw_tank(tank)
 
 def up():
     global angle
@@ -115,12 +117,13 @@ def update_enemy_movement():
     # delay to update movement of enemy tanks
     screen.ontimer(update_enemy_movement, 250)
 
-def collision(x,y):
-    distance_between_1=math.sqrt((tank.xcor() - enemy_tank1.xor()) ** 2) + (tank.ycor() -  enemy_tank1.ycor() ** 2)
-    distance_between_2=math.sqrt((tank.xcor() - enemy_tank2.xor()) ** 2) + (tank.ycor() -  enemy_tank2.ycor() ** 2)
+def collision(x,y): 
+                #(xb - xa)^2 + (yb - ya)^2 <= (ra + rb)^2
+    distance_between_1=math.sqrt((tank.xcor() - enemy_tank1.xcor()) ** 2) + (tank.ycor() -  enemy_tank1.ycor() ** 2)   #Static Circo-Circle collison detection. sqrt(Change of x)^2 + sqrt(change of y)^2
+    distance_between_2=math.sqrt((tank.xcor() - enemy_tank2.xcor()) ** 2) + (tank.ycor() -  enemy_tank2.ycor() ** 2)
 
-    collide_dis=10
-    return distance_between_1 < collide_dis or distance_between_2 < collide_dis
+    collide_dis=50
+    return distance_between_1 < collide_dis or distance_between_2 < collide_dis                 #compare distance and radii of circles to determine collision
 
 turtle.listen()
 turtle.onkeypress(down, "Down")
