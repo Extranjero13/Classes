@@ -117,12 +117,12 @@ def update_enemy_movement():
     # delay to update movement of enemy tanks
     screen.ontimer(update_enemy_movement, 250)
 
-def collision(x,y): 
+def collision(new_x,new_y): 
                 #(xb - xa)^2 + (yb - ya)^2 <= (ra + rb)^2
-    distance_between_1=math.sqrt((tank.xcor() - enemy_tank1.xcor()) ** 2) + (tank.ycor() -  enemy_tank1.ycor() ** 2)   #Static Circo-Circle collison detection. sqrt(Change of x)^2 + sqrt(change of y)^2
-    distance_between_2=math.sqrt((tank.xcor() - enemy_tank2.xcor()) ** 2) + (tank.ycor() -  enemy_tank2.ycor() ** 2)
+    distance_between_1=math.sqrt((new_x - enemy_tank1.xcor()) ** 2) + (new_y -  enemy_tank1.ycor() ** 2)   #Static Circle-Circle collison detection. sqrt(Change of x)^2 + sqrt(change of y)^2
+    distance_between_2=math.sqrt((new_x - enemy_tank2.xcor()) ** 2) + (new_y -  enemy_tank2.ycor() ** 2)
 
-    collide_dis=50
+    collide_dis=5
     return distance_between_1 < collide_dis or distance_between_2 < collide_dis                 #compare distance and radii of circles to determine collision
 
 turtle.listen()
