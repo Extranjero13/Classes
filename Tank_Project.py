@@ -50,7 +50,7 @@ velocity = 5
 
 def draw_enemy_tank(enemy_tank, color):
     enemy_tank.clear()
-    enemy_tank.dot(50, "red")  
+    enemy_tank.dot(50, "red")
     enemy_tank.forward(30)     # enemy turret draw
     enemy_tank.backward(30)
     screen.update()
@@ -75,6 +75,8 @@ def move():
         x, y = new_x, new_y
         tank.goto(x, y)
         draw_tank(tank)
+   
+           
 
 
 def up():
@@ -118,12 +120,19 @@ def update_enemy_movement():
     screen.ontimer(update_enemy_movement, 250)
 
 def collision(new_x,new_y): 
-                #(xb - xa)^2 + (yb - ya)^2 <= (ra + rb)^2
-    distance_between_1=math.sqrt((new_x - enemy_tank1.xcor()) ** 2) + (new_y -  enemy_tank1.ycor() ** 2)   #Static Circle-Circle collison detection. sqrt(Change of x)^2 + sqrt(change of y)^2
-    distance_between_2=math.sqrt((new_x - enemy_tank2.xcor()) ** 2) + (new_y -  enemy_tank2.ycor() ** 2)
+        #screen collision detection
+       if abs(new_x) >= screen.window_width() / 2 or abs(new_y) >= screen.window_height() / 2:
+        return True
+            #(xb - xa)^2 + (yb - ya)^2 <= (ra + rb)^2
+       distance_between_1 = math.sqrt((new_x - enemy_tank1.xcor())**2 + (new_y - enemy_tank1.ycor())** 2)               #Static Circle-Circle collison detection. sqrt(Change of x)^2 + sqrt(change of y)^2
+       distance_between_2 = math.sqrt((new_x - enemy_tank2.xcor())**  2 + (new_y - enemy_tank2.ycor()) ** 2)
+       collide_dis = 60
 
-    collide_dis=5
-    return distance_between_1 < collide_dis or distance_between_2 < collide_dis                 #compare distance and radii of circles to determine collision
+       if distance_between_1 < collide_dis or distance_between_2 < collide_dis:             #compare distance and radii of circles to determine collision
+            return True
+
+       return False
+                
 
 turtle.listen()
 turtle.onkeypress(down, "Down")
