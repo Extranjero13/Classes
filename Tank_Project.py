@@ -5,7 +5,8 @@ import math
 #Screen Settings
 screen = turtle.Screen()          # for screen (window)
 screen.setup(500, 500)
-screen.tracer(0)             # tell screen to not show automatically
+screen.tracer(0)
+screen.bgcolor('Blue')# tell screen to not show automatically
 
 #Tank draw settings
 tank = turtle.Turtle()
