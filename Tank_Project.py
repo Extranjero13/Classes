@@ -137,7 +137,30 @@ def collision(new_x,new_y):
 
        return False
                 
+def show_dist():
+    distance1 = int(enemy_tank1.distance(x, y))              #distance for tank 1
+    distance2 = int(enemy_tank2.distance(x, y))              #distance for tank 2 
+    print("Distance to Enemy Tank 1: ", distance1, "m")
+    print("Distance to Enemy Tank 2: ", distance2, "m")
+    screen.ontimer(show_dist, 1500)  #this will constantly update the screen with a recursive call, 1500 ms delay
+    
 
+    units=[distance1,distance2]         #selection sort, place the enemy tank distances into a list
+    for i in range(len(units)):                 #We use a for loop with the range function so as to avoid float and integer confusion
+        small=i                                     #initialize small variable which will hold the current minumum value
+        for j in range(i+1,len(units)):             # we use i+1 to check the next value in the list 
+            if units[j] < units[small]:
+                small=j
+        units[i],units[small]=units[small],units[i]     #Swap positions
+    print("Enemy Tank 1 is : ", units[0], "m away from player");
+    print("Enemy Tank 2 is : ", units[1], "m away from player");
+    
+    
+
+
+
+
+    
 turtle.listen()
 turtle.onkeypress(down, "Down")
 turtle.onkeyrelease(down, "Down")
@@ -153,6 +176,7 @@ draw_tank(tank)
 
 update_enemy_movement()
 
+show_dist()
 screen.update()
 
 turtle.mainloop()
