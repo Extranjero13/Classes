@@ -146,12 +146,12 @@ def show_dist():
     
 
     units=[distance1,distance2]         #selection sort, place the enemy tank distances into a list
-    for i in range(len(units)):                 #We use a for loop with the range function so as to avoid float and integer confusion
+    for i in range(len(units)):                 #We use a for loop with the range function so as to avoid float and integer confusion. Outer loop is responsible for iteration
         small=i                                     #initialize small variable which will hold the current minumum value
-        for j in range(i+1,len(units)):             # we use i+1 to check the next value in the list 
+        for j in range(i+1,len(units)):             # we use i+1 to check the next value in the list, that which remains in the list to be sorted
             if units[j] < units[small]:
                 small=j
-        units[i],units[small]=units[small],units[i]     #Swap positions
+        units[i],units[small]=units[small],units[i]     #Swap positions of indeces in the list 
     print("Enemy Tank 1 is : ", units[0], "m away from player");
     print("Enemy Tank 2 is : ", units[1], "m away from player");
     
