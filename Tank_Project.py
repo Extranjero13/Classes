@@ -138,22 +138,38 @@ def collision(new_x,new_y):
        return False
                 
 def show_dist():
-    distance1 = int(enemy_tank1.distance(x, y))              #distance for tank 1
-    distance2 = int(enemy_tank2.distance(x, y))              #distance for tank 2 
+  
+    distance1 = int(enemy_tank1.distance(x, y))              #initial distance to tank 1.
+    distance2 = int(enemy_tank2.distance(x, y))              #initial distance to tank 2. 
+    
+    # Printing out the initial distance to the enemy tanks
     print("Distance to Enemy Tank 1: ", distance1, "m")
     print("Distance to Enemy Tank 2: ", distance2, "m")
-    screen.ontimer(show_dist, 1500)  #this will constantly update the screen with a recursive call, 1500 ms delay
     
+    # Pairs each tank index with its distance respectively.
+    # Enemy Tank 1, represented by index 1 and its distance from our tank is stored in tank1_distance
+    # Enemy Tank 2, represented by index 2 and its distance from our tank is stored in tank2_distance
+    tank1_distance = (1, distance1)
+    tank2_distance = (2, distance2)
+    sorted_distances = [tank1_distance, tank2_distance]
 
-    units=[distance1,distance2]         #selection sort, place the enemy tank distances into a list
-    for i in range(len(units)):                 #We use a for loop with the range function so as to avoid float and integer confusion. Outer loop is responsible for iteration
-        small=i                                     #initialize small variable which will hold the current minumum value
-        for j in range(i+1,len(units)):             # we use i+1 to check the next value in the list, that which remains in the list to be sorted
-            if units[j] < units[small]:
-                small=j
-        units[i],units[small]=units[small],units[i]     #Swap positions of indeces in the list 
-    print("Enemy Tank 1 is : ", units[0], "m away from player");
-    print("Enemy Tank 2 is : ", units[1], "m away from player");
+    #Arranges the enemy tank distances in ascending order implementing  selection sort
+    for i in range(len(sorted_distances)): 
+      small = i
+      for j in range(i+1, len(sorted_distances)): #Iterates through the list of distances to find the smallest distance.
+        if sorted_distances[j][1] < sorted_distances[small][1]:
+            small = j
+      sorted_distances[i], sorted_distances[small] = sorted_distances[small], sorted_distances[i]
+      #It eventually swaps the current distance with the smallest distance which ensures that the distances are sorted from closer to farther.
+
+# Prints sorted list of tanks with distances (ascending order) and corresponding indices.
+    print("Tanks sorted by distance:")
+    tank_index = 1  # Starts with initial tank index 1
+    for distance in sorted_distances:
+        print("Enemy Tank", tank_index, "is:", distance, "units away from player")
+        tank_index += 1  # Increments the tank index by 1 for the next change. 
+
+    screen.ontimer(show_dist, 1500) #this will constantly update the screen with a recursive call, 1500 ms delay
     
     
 
